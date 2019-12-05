@@ -14,10 +14,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
+        $products = Product::latest()->paginate(3);
   
         return view('products.index',compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 3);
     }
    
     /**
@@ -41,12 +41,13 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'detail' => 'required',
+            'price' => 'required',
         ]);
   
         Product::create($request->all());
    
         return redirect()->route('products.index')
-                        ->with('success','Product created successfully.');
+                        ->with('success','Producto creado.');
     }
    
     /**
@@ -83,12 +84,14 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'detail' => 'required',
+            'price' => 'required',
+
         ]);
   
         $product->update($request->all());
   
         return redirect()->route('products.index')
-                        ->with('success','Product updated successfully');
+                        ->with('success','Producto actualizado');
     }
   
     /**
@@ -102,6 +105,6 @@ class ProductController extends Controller
         $product->delete();
   
         return redirect()->route('products.index')
-                        ->with('success','Product deleted successfully');
+                        ->with('success','Producto eliminado');
     }
 }
