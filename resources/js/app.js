@@ -13,4 +13,6 @@ require('./bootstrap');
  */
 
 require('./components/Index');
+require('./components/Product');
+
 

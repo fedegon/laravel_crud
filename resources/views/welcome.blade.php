@@ -87,7 +87,7 @@
                     Laravel
                 </div>
 
-                <div id="index" class="tittle m-d-md">
+                <div id="productReact" class="tittle m-d-md">
                 </div>
 
                 <div class="links">
