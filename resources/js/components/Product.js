@@ -7,7 +7,8 @@ export default class Product extends Component {
         this.state = {
             name: '',
             detail: '',
-            price: ''
+            price: '',
+            productos: []
         };
         // bind
         this.handleChange = this.handleChange.bind(this);
@@ -16,6 +17,11 @@ export default class Product extends Component {
 
         // bind
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        //bind
+
+        this.renderProducts = this.renderProducts.bind(this);
+
     }
 
 
@@ -101,12 +107,41 @@ export default class Product extends Component {
                                         Crear Producto
                                     </button>
                                 </form>
+                                <hr />
+                                {this.renderProducts()}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    getProductos() {
+        axios.get('/productsReact')
+            .then(response => {
+                this.setState({
+                    productos: response.data.products
+                })
+            })
+    }
+    // lifecycle method
+    componentDidMount() {
+        this.getProductos();
+    }
+    
+    renderProducts() {
+        return this.state.productos.map(products => (
+            <div key={products.id} className="media">
+                <div className="media-body">
+                    <p>
+                    <span> {products.name} - </span>
+                    <span>{products.price} - </span>
+                    <span>{products.detail}</span>  
+                    </p>               
+                </div>
+            </div>
+        ));
     }
 }
 

@@ -69017,14 +69017,17 @@ function (_Component) {
     _this.state = {
       name: '',
       detail: '',
-      price: ''
+      price: '',
+      productos: []
     }; // bind
 
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleChange2 = _this.handleChange2.bind(_assertThisInitialized(_this));
     _this.handleChange3 = _this.handleChange3.bind(_assertThisInitialized(_this)); // bind
 
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this)); //bind
+
+    _this.renderProducts = _this.renderProducts.bind(_assertThisInitialized(_this));
     return _this;
   } // handle change
 
@@ -69111,7 +69114,36 @@ function (_Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "submit",
         className: "btn btn-primary"
-      }, "Crear Producto")))))));
+      }, "Crear Producto")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), this.renderProducts())))));
+    }
+  }, {
+    key: "getProductos",
+    value: function getProductos() {
+      var _this2 = this;
+
+      axios.get('/productsReact').then(function (response) {
+        _this2.setState({
+          productos: response.data.products
+        });
+      });
+    } // lifecycle method
+
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getProductos();
+    }
+  }, {
+    key: "renderProducts",
+    value: function renderProducts() {
+      return this.state.productos.map(function (products) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: products.id,
+          className: "media"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "media-body"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, " ", products.name, " - "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, products.price, " - "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, products.detail))));
+      });
     }
   }]);
 

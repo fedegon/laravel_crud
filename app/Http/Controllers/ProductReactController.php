@@ -7,14 +7,25 @@ use Illuminate\Http\Request;
 
 class ProductReactController extends Controller
 {
+
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $products = Product::orderBy('created_at', 'desc')->take(10)->get();
+		// return json response
+		return response()->json([
+			'products' => $products,
+        ]);
+        
     }
 
     /**
